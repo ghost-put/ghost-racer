@@ -232,9 +232,9 @@ class GazeboEnv(Env, GazeboMixin):
 
     def draw_waypoints(self):
         # draw checkpoints
-        if self.board_path.current_checkpoint is not None and self.board_path.next_checkpoint is not None:
+        if self.board_path.current_checkpoint is not None and self.board_path.last_checkpoint is not None:
             cv2.circle(self.current_board, tuple(self.board_path.current_checkpoint), 25, color_2, -1)
-            cv2.circle(self.current_board, tuple(self.board_path.next_checkpoint), 20, color_3, -1)
+            cv2.circle(self.current_board, tuple(self.board_path.last_checkpoint), 20, color_3, -1)
 
     def draw_cars_direction(self):
         # draw direction
@@ -254,14 +254,14 @@ class GazeboEnv(Env, GazeboMixin):
             car_position_point = int(self.board_path.car_position[0]), int(self.board_path.car_position[1])
             car_front_position_point = self.board_path.car_front_point
             current_checkpoint_point = tuple(self.board_path.current_checkpoint)
-            next_checkpoint_point = tuple(self.board_path.next_checkpoint)
+            last_checkpoint_point = tuple(self.board_path.last_checkpoint)
 
             if intersection_point is not None:
                 if draw_temp_lines:
                     cv2.circle(self.current_board, intersection_point, 10, 127)
                     rospy.loginfo("point is {}".format((y, x)))
                     cv2.line(self.current_board, car_position_point, car_front_position_point, 255, 4)
-                    cv2.line(self.current_board, current_checkpoint_point, next_checkpoint_point, 255, 4)
+                    cv2.line(self.current_board, current_checkpoint_point, last_checkpoint_point, 255, 4)
 
-                cv2.line(self.current_board, next_checkpoint_point, intersection_point, color_1, 4)
+                cv2.line(self.current_board, current_checkpoint_point, intersection_point, color_1, 4)
                 cv2.line(self.current_board, car_position_point, intersection_point, color_2, 4)
