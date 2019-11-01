@@ -65,7 +65,6 @@ def vector_on_straight(straight):
     p1 = np.array([0, -(0 * straight[0] + straight[2]) / straight[1]])
     #substitute x = 1
     p2 = np.array([1, -(1 * straight[0] + straight[2]) / straight[1]])
-    print(p2 - p1)
     return p2 - p1
 
 def angle_between_two_straight(straight1, straight2):
