@@ -55,7 +55,7 @@ def vector_on_straight(straight):
     :param straight1 (a, b, c)
     :return: numpy.array representing vector on given straight
     """
-    #the idea is to take two arbitrary points on the straight and construct the vector connecting these two points
+    #the idea is to take two arbitrary points on given straight line and construct vector connecting these two points
 
     if np.isclose(straight[0], 0.0):
         return np.array([1.0, 0.0])
