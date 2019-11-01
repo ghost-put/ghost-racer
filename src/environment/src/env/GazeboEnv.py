@@ -145,12 +145,13 @@ class GazeboEnv(Env, GazeboMixin):
         self.current_car_position = np.array([relative_car_x, relative_car_y])
 
 
-        _, distance = self._get_closest_point_on_board(relative_car_x, relative_car_y)
+        distance = self._get_closest_point_on_board(relative_car_x, relative_car_y)
         self._info['distance_to_road'] = distance
         self._info['distance_to_checkpoint'] = self.board_path.get_distance_to_next_checkpoint()
         #print("Distance:", distance)
         angle = self.board_path.angle_to_road_rad
-        self._info['angle'] = angle
+        angle_deg = self.board_path.angle_to_road
+        self._info['angle'] = (angle, angle_deg)
         velocity = self.board_path.car_velocity
         # TODO more sophisticated reward function (?)
         reward = (20 * velocity * np.cos(angle) - 0.001 * distance)
@@ -161,9 +162,9 @@ class GazeboEnv(Env, GazeboMixin):
         """
 
         :param relative_car_x: int, relative_car_y: int
-        :return: closest_point_index: np.array, distance: float
+        :return: distance: float
         """
-        return self.board_path.current_checkpoint, self.board_path.get_distance_to_next_checkpoint()
+        return self.board_path.get_distance_to_road()
 
     def _get_message_from_action(self, action):
         """

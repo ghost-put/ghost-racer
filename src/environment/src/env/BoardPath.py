@@ -105,10 +105,10 @@ class BoardPath:
     def get_distance_to_road(self):
         a, b, c = get_straight_from_points(self.current_checkpoint, self.last_checkpoint)
 
-        if b == 0:  # parallel to OX
-            return abs(self.current_checkpoint[0] - self.car_position[0])
-        if a == 0:  # parallel to OY
+        if a == 0:  # parallel to OX
             return abs(self.current_checkpoint[1] - self.car_position[1])
+        if b == 0:  # parallel to OY
+            return abs(self.current_checkpoint[0] - self.car_position[0])
 
         tmp = point_to_straight_distance((a, b, c), self.car_position)
         return tmp
