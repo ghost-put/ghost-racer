@@ -33,7 +33,7 @@ class BoardPath:
         self.car_position = self._last_car_position
         self.car_direction = np.zeros((2,))
         self.current_road_straight_line = get_straight_from_points(self.last_checkpoint, self.current_checkpoint)
-        self.car_size = 100  # hardcoded for debugging
+        self.car_size = 50  # hardcoded for debugging
 
     def _forward_checkpoint(self):
         self.current_checkpoint_index = (self.current_checkpoint_index + 1) % len(self.dots)
