@@ -50,20 +50,33 @@ def point_to_straight_distance(line, point):
     return np.abs(a * x + b * y + c) / denominator
 
 
+def vector_on_straight(straight):
+    """
+    :param straight1 (a, b, c)
+    :return: numpy.array representing vector on given straight
+    """
+    #the idea is to take two arbitrary points on the straight and construct the vector connecting these two points
+
+    if np.isclose(straight[0], 0.0):
+        return np.array([1.0, 0.0])
+    if np.isclose(straight[1], 0.0):
+        return np.array([0.0, 1.0])
+    #substitute x = 0
+    p1 = np.array([0, -(0 * straight[0] + straight[2]) / straight[1]])
+    #substitute x = 1
+    p2 = np.array([1, -(1 * straight[0] + straight[2]) / straight[1]])
+    print(p2 - p1)
+    return p2 - p1
+
 def angle_between_two_straight(straight1, straight2):
     """
     :param straight1: (a, b, c)
     :param straight2: (a, b, c)
     :return: angle between two straight lines in degrees
     """
-    if straight1[1] == 0 and straight2[0] == 0 or straight1[0] == 0 and straight2[1] == 0:
-        return 90
-
-    val = (1 + straight1[0] * straight2[0])
-    if np.isclose(val, 0.0):
-        return 90.0
-    return np.rad2deg(np.arctan((straight2[0] - straight1[0]) / val))
-
+    v1 = vector_on_straight(straight1)
+    v2 = vector_on_straight(straight2)
+    return np.rad2deg(angle_between_vectors(v1, v2))
 
 def angle_between_vectors(vec1, vec2):
     return np.arccos(np.dot(vec1, vec2) / (np.linalg.norm(vec1) * np.linalg.norm(vec2)))
