@@ -75,7 +75,8 @@ def angle_between_two_straight(straight1, straight2):
     """
     v1 = vector_on_straight(straight1)
     v2 = vector_on_straight(straight2)
-    return np.rad2deg(angle_between_vectors(v1, v2))
+    deg = np.rad2deg(angle_between_vectors(v1, v2))
+    return min(deg, 180 - deg)
 
 def angle_between_vectors(vec1, vec2):
     return np.arccos(np.dot(vec1, vec2) / (np.linalg.norm(vec1) * np.linalg.norm(vec2)))
