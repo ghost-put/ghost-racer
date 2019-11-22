@@ -186,22 +186,22 @@ class SimpleKeyTeleop():
             ang = "R"
         elif self._angular < 0:
             ang = "L"
-        self._step = actions[lin+ang] 
+        self._step = actions[lin+ang]
 
     def _publish(self):
         observation, reward, done, info = self._env.step(self._step)
         self._env.render()
-        
+
         self._interface.clear()
         for i, (key, val) in enumerate(info.items()):
-            if key == 'angle':
-                self._interface.write_line(i + 2, "{}: {:9.4f} ({:3d}°)".format(key, val[0], int(val[1])))
-            else:
+            if key == 'angle_rad':
                 self._interface.write_line(i + 2, "{}: {:9.4f}".format(key, val))
+            if key == 'angle_deg':
+                self._interface.write_line(i + 2, "{}: ({:3d}°)".format(key, int(val)))
 
         self._interface.write_line(7, 'Use arrow keys to move, r to restart, q to exit.')
         self._interface.refresh()
-    
+
 
 
 def main(stdscr):

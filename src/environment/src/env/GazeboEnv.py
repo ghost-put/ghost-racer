@@ -151,7 +151,8 @@ class GazeboEnv(Env, GazeboMixin):
         #print("Distance:", distance)
         angle = self.board_path.angle_to_road_rad
         angle_deg = self.board_path.angle_to_road
-        self._info['angle'] = (angle, angle_deg)
+        self._info['angle_rad'] = angle
+        self._info['angle_deg'] = angle_deg
         velocity = self.board_path.car_velocity
         # TODO more sophisticated reward function (?)
         reward = (20 * velocity * np.cos(angle) - 0.001 * distance)
